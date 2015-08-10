@@ -1,0 +1,8 @@
+" Access colors present in 256 colorspace
+let base16colorspace=256
+
+" Use ocean color scheme
+colorscheme base16-ocean
+
+" Use dark scheme variant
+set background=dark
