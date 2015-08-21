@@ -7,3 +7,5 @@ ZSH_THEME_GIT_PROMPT_SUFFIX="]"
 BASE16_SHELL="$HOME/.config/base16-shell/base16-ocean.dark.sh"
 [[ -s $BASE16_SHELL ]] && source $BASE16_SHELL
 
+# Homebrew PATH
+export PATH="/usr/local/bin:/usr/local/sbin:$PATH"
