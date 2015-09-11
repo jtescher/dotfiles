@@ -9,3 +9,6 @@ BASE16_SHELL="$HOME/.config/base16-shell/base16-ocean.dark.sh"
 
 # Homebrew PATH
 export PATH="/usr/local/bin:/usr/local/sbin:$PATH"
+
+# Ruby Version Manager PATH
+export PATH="$PATH:$HOME/.rvm/bin"
