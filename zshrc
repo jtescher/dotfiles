@@ -68,3 +68,5 @@ _load_settings() {
 _load_settings "$HOME/.zsh/configs"
 
 [[ -f ~/.zshrc.local ]] && source ~/.zshrc.local
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh

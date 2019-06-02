@@ -27,19 +27,52 @@ com! -nargs=+  -bar Bundle call VundleToPlug("Bundle", <args>)
 call plug#begin('~/.vim/bundle')
 
 " Define bundles via Github repos
-Plug 'christoomey/vim-run-interactive'
-Plug 'kien/ctrlp.vim'
-Plug 'pbrisbin/vim-mkdir'
-Plug 'scrooloose/syntastic'
-Plug 'tpope/vim-eunuch'
-Plug 'tpope/vim-fugitive'
-Plug 'tpope/vim-repeat'
-Plug 'tpope/vim-surround'
-Plug 'scrooloose/nerdtree'
-Plug 'myusuf3/numbers.vim'
-Plug 'vim-scripts/tComment'
-Plug 'airblade/vim-gitgutter'
-Plug 'chriskempson/base16-vim'
+Plug 'pbrisbin/vim-mkdir'            " Make missing directories for buffers
+Plug 'scrooloose/syntastic'          " Syntax checking
+Plug 'tpope/vim-fugitive'            " Git wrapper
+Plug 'scrooloose/nerdtree'           " File browser
+Plug 'vim-scripts/tComment'          " Comment with gcc
+Plug 'airblade/vim-gitgutter'        " Diff markers in gutter
+Plug 'chriskempson/base16-vim'       " Color scheme
+Plug 'justinmk/vim-sneak'            " Better search via `s`
+" Plug 'w0rp/ale'                      " Lint engine
+Plug 'machakann/vim-highlightedyank' " Highlight yanked line
+Plug 'andymass/vim-matchup'          " Match pairs support
+Plug 'airblade/vim-rooter'           " Define the root of the project
+Plug 'ncm2/ncm2'                     " Completion manager
+Plug 'roxma/nvim-yarp'               " Used with ncm2 plugins
+Plug 'ncm2/ncm2-bufword'             " Completion for words in current buffer
+Plug 'ncm2/ncm2-path'                " Completion for paths
+Plug 'cespare/vim-toml'              " TOML syntax highlighting
+Plug 'rust-lang/rust.vim'            " Rust
+Plug 'godlygeek/tabular'             " Align rows based on delimiter
+Plug 'plasticboy/vim-markdown'       " Markdown syntax
+
+" Language client and fuzzy finding
+Plug 'autozimu/LanguageClient-neovim', {
+    \ 'branch': 'next',
+    \ 'do': 'bash install.sh',
+    \ }
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+Plug 'junegunn/fzf.vim'
+
+
+" Linter
+
+" Required for operations modifying multiple buffers like rename.
+set hidden
+
+let g:LanguageClient_serverCommands = {
+    \ 'rust': ['~/.cargo/bin/rustup', 'run', 'stable', 'rls'],
+    \ }
+
+nnoremap <F5> :call LanguageClient_contextMenu()<CR>
+" Or map each action separately
+nnoremap <silent> K :call LanguageClient#textDocument_hover()<CR>
+nnoremap <silent> gd :call LanguageClient#textDocument_definition()<CR>
+nnoremap <silent> <F6> :call LanguageClient#textDocument_rename()<CR>
+
+
 
 if filereadable(expand("~/.vimrc.bundles.local"))
   source ~/.vimrc.bundles.local
