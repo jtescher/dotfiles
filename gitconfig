@@ -1,3 +1,7 @@
+[user]
+  name = Julian Tescher
+  email = jatescher@gmail.com
+  signingkey = 8F947BE3A4F80BA9B07DE817071E80334C3B170F
 [push]
   default = current
 [color]
@@ -5,9 +9,11 @@
 [core]
   excludesfile = ~/.gitignore
   autocrlf = input
+  pager = diff-highlight | less
+  commentChar = auto
 [merge]
   ff = only
-  tool = opendiff
+  tool = nvim -d
 [fetch]
   prune = true
 [rebase]
@@ -16,3 +22,8 @@
   path = ~/.gitconfig.local
 [commit]
   gpgsign = true
+[help]
+  autocorrect = 1
+[diff]
+  algorithm = patience
+  compactionHeuristic = true

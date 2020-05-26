@@ -134,7 +134,7 @@ let g:syntastic_html_tidy_ignore_errors=[" proprietary attribute \"ng-"]
 set spellfile=$HOME/.vim-spell-en.utf-8.add
 
 " Always use vertical diffs
-set diffopt+=vertical
+" set diffopt+=vertical
 
 " Load NERDTree on launch if no files were selected
 autocmd StdinReadPre * let s:std_in=1

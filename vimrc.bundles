@@ -47,6 +47,7 @@ Plug 'cespare/vim-toml'              " TOML syntax highlighting
 Plug 'rust-lang/rust.vim'            " Rust
 Plug 'godlygeek/tabular'             " Align rows based on delimiter
 Plug 'plasticboy/vim-markdown'       " Markdown syntax
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } } " Fuzzy find
 
 " Language client and fuzzy finding
 Plug 'autozimu/LanguageClient-neovim', {
