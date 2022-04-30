@@ -2,6 +2,8 @@
   name = Julian Tescher
   email = jatescher@gmail.com
   signingkey = 8F947BE3A4F80BA9B07DE817071E80334C3B170F
+[pull]
+  ff = only
 [push]
   default = current
 [color]
@@ -27,3 +29,5 @@
 [diff]
   algorithm = patience
   compactionHeuristic = true
+[alias]
+  recent = branch --sort=-committerdate --format=\"%(committerdate:relative)%09%(refname:short)\"
