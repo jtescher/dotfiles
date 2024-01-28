@@ -81,10 +81,6 @@ hi Normal ctermbg=NONE
 call Base16hi("Comment", g:base16_gui09, "", g:base16_cterm09, "", "", "")
 " Make it clearly visible which argument we're at.
 call Base16hi("LspSignatureActiveParameter", g:base16_gui05, g:base16_gui03, g:base16_cterm05, g:base16_cterm03, "bold", "")
-" Would be nice to customize the highlighting of warnings and the like to make
-" them less glaring. But alas
-" https://github.com/nvim-lua/lsp_extensions.nvim/issues/21
-" call Base16hi("CocHintSign", g:base16_gui03, "", g:base16_cterm03, "", "", "")
 
 " LSP configuration
 lua << END
@@ -165,6 +161,9 @@ local on_attach = function(client, bufnr)
   -- Enable completion triggered by <c-x><c-o>
   vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
 
+  -- Fix color change issue https://github.com/neovim/nvim-lspconfig/issues/2552
+  client.server_capabilities.semanticTokensProvider = nil
+
   --LSP status updates
   lsp_status.on_attach(client)
 
@@ -221,10 +220,12 @@ vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
     update_in_insert = true,
   }
 )
+
 END
 
+
 " Enable type inlay hints
-autocmd CursorHold,CursorHoldI *.rs :lua require'lsp_extensions'.inlay_hints{ only_current_line = true }
+" autocmd CursorHold,CursorHoldI *.rs :lua require'lsp_extensions'.inlay_hints{ only_current_line = true }
 
 " Plugin settings
 let NERDTreeShowHidden=1
@@ -270,7 +271,7 @@ function! LightlineLspStatus()
 endfunction
 
 if executable('rg')
-	set grepprg=rg\ --no-heading\ --vimgrep
+	set grepprg=rg\ --no-heading\ --vimgrep\ --hidden
 	set grepformat=%f:%l:%c:%m
 endif
 
@@ -334,9 +335,6 @@ let g:sneak#s_next = 1
 let g:vim_markdown_new_list_item_indent = 0
 let g:vim_markdown_auto_insert_bullets = 0
 let g:vim_markdown_frontmatter = 1
-set printfont=:h10
-set printencoding=utf-8
-set printoptions=paper:letter
 " Always draw sign column. Prevent buffer moving when adding/deleting sign.
 set signcolumn=yes
 
@@ -453,7 +451,7 @@ noremap <leader>s :Rg
 let g:fzf_layout = { 'down': '~20%' }
 command! -bang -nargs=* Rg
   \ call fzf#vim#grep(
-  \   'rg --column --line-number --no-heading --color=always '.shellescape(<q-args>), 1,
+  \   'rg --column --line-number --no-heading --hidden --color=always '.shellescape(<q-args>), 1,
   \   <bang>0 ? fzf#vim#with_preview('up:60%')
   \           : fzf#vim#with_preview('right:50%:hidden', '?'),
   \   <bang>0)
